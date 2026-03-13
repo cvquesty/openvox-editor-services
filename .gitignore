@@ -1,0 +1,14 @@
+Gemfile.lock
+Gemfile.local
+*.gem
+log/
+junit/
+.vagrant/
+.bundle/
+coverage/
+log/
+.DS_Store
+tmp/
+output/
+vendor/
+pkg/

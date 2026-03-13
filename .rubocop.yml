@@ -1,0 +1,25 @@
+inherit_from: .rubocop_todo.yml
+
+plugins: 
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-performance
+  - rubocop-factory_bot
+  - rubocop-capybara
+
+AllCops:
+  Include:
+    - 'lib/**/*.rb'
+    - 'puppet-languageserver'
+  Exclude:
+    - 'tmp/**/*'
+    - 'spec/**/*'
+    - 'vendor/**/*'
+    - Gemfile
+    - Rakefile
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: '3.1'
+# Disabled
+Style/ClassAndModuleChildren:
+  Enabled: false
