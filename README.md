@@ -1,10 +1,31 @@
-# Puppet Editor Services
+# OpenVox Editor Services
 
-[![Code Owners](https://img.shields.io/badge/owners-DevX--team-blue)](https://github.com/puppetlabs/puppet-editor-services/blob/main/CODEOWNERS)
-![ci](https://github.com/puppetlabs/puppet-editor-services/actions/workflows/ci.yml/badge.svg)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/puppetlabs/puppet-editor-services)
+A Ruby-based implementation of a [Language Server](https://github.com/Microsoft/language-server-protocol) and [Debug Server](https://github.com/microsoft/debug-adapter-protocol) for the Puppet/OpenVox Language.
 
-A ruby based implementation of a [Language Server](https://github.com/Microsoft/language-server-protocol) and [Debug Server](https://github.com/microsoft/debug-adapter-protocol) for the Puppet Language. Integrate this into your editor to benefit from full Puppet Language support, such as syntax hightlighting, linting, hover support and more.
+This is the OpenVox community fork of [puppet-editor-services](https://github.com/puppetlabs/puppet-editor-services), maintained by [Vox Pupuli](https://voxpupuli.org).
+
+## Features
+
+- **Language Server Protocol (LSP)** - Full IDE support for Puppet code
+  - Syntax highlighting
+  - IntelliSense and auto-completion
+  - Hover documentation
+  - Go to definition
+  - Find all references
+  - Document symbols
+  - Signature help
+  - Linting integration
+
+- **Debug Adapter Protocol (DAP)** - Debug Puppet manifests
+  - Breakpoints
+  - Variable inspection
+  - Step through code
+
+## Integration
+
+This project provides the backend services for:
+- [VoxCode](https://github.com/cvquesty/voxcode) - THE OpenVox code editor
+- [voxcode-extension](https://github.com/cvquesty/voxcode-extension) - VS Code extension
 
 ## Requirements
 
