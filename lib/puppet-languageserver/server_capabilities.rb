@@ -3,7 +3,7 @@
 require 'lsp/lsp'
 
 module PuppetLanguageServer
-  module ServerCapabilites
+  module ServerCapabilities
     def self.folding_provider_supported?
       @folding_provider ||= PuppetLanguageServer::Manifest::FoldingProvider.supported?
     end

@@ -125,7 +125,7 @@ describe 'PuppetLanguageServer::MessageHandler' do
         end
       end
 
-      it 'should reply with capabilites' do
+      it 'should reply with capabilities' do
         expect(subject.request_initialize(connection_id, request_message)['capabilities']).to_not be_nil
       end
 
@@ -138,7 +138,7 @@ describe 'PuppetLanguageServer::MessageHandler' do
 
       context 'When folding is supported' do
         before(:each) do
-          allow(PuppetLanguageServer::ServerCapabilites).to receive(:folding_provider_supported?).and_return(true)
+          allow(PuppetLanguageServer::ServerCapabilities).to receive(:folding_provider_supported?).and_return(true)
         end
 
         include_examples 'dynamically registered provider', 'foldingRange', 'textDocument/foldingRange/dynamicRegistration', 'foldingRangeProvider'
@@ -146,7 +146,7 @@ describe 'PuppetLanguageServer::MessageHandler' do
 
       context 'When folding is not supported' do
         before(:each) do
-          allow(PuppetLanguageServer::ServerCapabilites).to receive(:folding_provider_supported?).and_return(false)
+          allow(PuppetLanguageServer::ServerCapabilities).to receive(:folding_provider_supported?).and_return(false)
         end
 
         include_examples 'never registered provider', 'foldingRange', 'textDocument/foldingRange/dynamicRegistration', 'foldingRangeProvider'

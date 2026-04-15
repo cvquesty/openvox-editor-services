@@ -377,7 +377,7 @@ describe 'PuppetLanguageServer::SessionState::LanguageClient' do
 
       context 'When folding is supported' do
         before(:each) do
-          allow(PuppetLanguageServer::ServerCapabilites).to receive(:folding_provider_supported?).and_return(true)
+          allow(PuppetLanguageServer::ServerCapabilities).to receive(:folding_provider_supported?).and_return(true)
         end
 
         it_behaves_like 'a client setting', :folding_range, PuppetLanguageServer::SessionState::LanguageClient::DEFAULT_FOLDING_RANGE_ENABLE
@@ -390,7 +390,7 @@ describe 'PuppetLanguageServer::SessionState::LanguageClient' do
 
       context 'When folding is not supported' do
         before(:each) do
-          allow(PuppetLanguageServer::ServerCapabilites).to receive(:folding_provider_supported?).and_return(false)
+          allow(PuppetLanguageServer::ServerCapabilities).to receive(:folding_provider_supported?).and_return(false)
         end
 
         it_behaves_like 'an unsupported client setting', :folding_range

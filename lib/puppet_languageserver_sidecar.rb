@@ -285,7 +285,7 @@ module PuppetLanguageServerSidecar
       typename = options[:action_parameters]['typename']
       title = options[:action_parameters]['title']
       if typename.nil?
-        log_message(:error, 'Missing typename action paramater')
+        log_message(:error, 'Missing typename action parameter')
         return []
       end
       PuppetLanguageServerSidecar::PuppetHelper.get_puppet_resource(typename, title)

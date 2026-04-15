@@ -13,7 +13,7 @@ jobs:
   release:
     name: "Release"
     runs-on: "ubuntu-latest"
-    if: github.repository_owner == 'puppetlabs'
+    if: github.repository_owner == 'cvquesty'
 
     steps:
 

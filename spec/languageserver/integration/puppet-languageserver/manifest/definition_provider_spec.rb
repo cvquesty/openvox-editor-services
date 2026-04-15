@@ -35,7 +35,7 @@ describe 'definition_provider' do
     ], :class, :rspec)
   end
 
-  describe '#find_defintion' do
+  describe '#find_definition' do
     context 'Given a Puppet Plan', :if => Puppet.tasks_supported? do
       let(:content) { <<-EOT
         plan mymodule::my_plan(

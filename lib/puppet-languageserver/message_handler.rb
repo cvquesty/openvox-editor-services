@@ -30,7 +30,7 @@ module PuppetLanguageServer
 
       language_client.parse_lsp_initialize!(json_rpc_message.params)
       static_folding_provider = !language_client.client_capability('textDocument', 'foldingRange', 'dynamicRegistration') &&
-                                PuppetLanguageServer::ServerCapabilites.folding_provider_supported?
+                                PuppetLanguageServer::ServerCapabilities.folding_provider_supported?
       # Setup static registrations if dynamic registration is not available
       info = {
         documentOnTypeFormattingProvider: !language_client.client_capability('textDocument', 'onTypeFormatting', 'dynamicRegistration'),
@@ -49,7 +49,7 @@ module PuppetLanguageServer
       # Initiate loading of the workspace if needed
       session_state.load_workspace_data! if documents.store_has_module_metadata? || documents.store_has_environmentconf?
 
-      { 'capabilities' => PuppetLanguageServer::ServerCapabilites.capabilities(info) }
+      { 'capabilities' => PuppetLanguageServer::ServerCapabilities.capabilities(info) }
     end
 
     def request_shutdown(_, _json_rpc_message)
@@ -99,7 +99,7 @@ module PuppetLanguageServer
                                          'error' => node_graph.error_content)
       rescue StandardError => e
         PuppetLanguageServer.log_message(:error, "(puppet/compileNodeGraph) Error generating node graph. #{e}")
-        LSP::PuppetNodeGraphResponse.new('error' => 'An internal error occured while generating the the node graph. Please see the debug log files for more information.')
+        LSP::PuppetNodeGraphResponse.new('error' => 'An internal error occurred while generating the node graph. Please see the debug log files for more information.')
       end
     end
 
@@ -114,7 +114,7 @@ module PuppetLanguageServer
         result = PuppetLanguageServer::Puppetfile::ValidationProvider.find_dependencies(document.content)
       rescue StandardError => e
         PuppetLanguageServer.log_message(:error, "(puppetfile/getdependencies) Error parsing puppetfile. #{e}")
-        return LSP::PuppetfileDependencyResponse.new('error' => 'An internal error occured while parsing the puppetfile. Please see the debug log files for more information.')
+        return LSP::PuppetfileDependencyResponse.new('error' => 'An internal error occurred while parsing the Puppetfile. Please see the debug log files for more information.')
       end
 
       LSP::PuppetfileDependencyResponse.new('dependencies' => result)
@@ -420,7 +420,7 @@ module PuppetLanguageServer
     def request_initialize(_, _json_rpc_message)
       PuppetLanguageServer.log_message(:debug, 'Received initialize method')
       # If the Language Server is not active then we can not respond to any capability
-      { 'capabilities' => PuppetLanguageServer::ServerCapabilites.no_capabilities }
+      { 'capabilities' => PuppetLanguageServer::ServerCapabilities.no_capabilities }
     end
 
     def request_shutdown(_, _json_rpc_message)
@@ -449,7 +449,7 @@ module PuppetLanguageServer
         ::PuppetEditorServices::Protocol::JsonRPCMessages.new_notification(
           'window/showMessage',
           'type' => LSP::MessageType::WARNING,
-          'message' => 'An error occured while starting the Language Server. The server has been disabled.'
+          'message' => 'An error occurred while starting the Language Server. The server has been disabled.'
         )
       )
     end

@@ -16,7 +16,7 @@ module PuppetLanguageServer
 
       def initialize(message_handler)
         @message_handler = message_handler
-        @client_capabilites = {}
+        @client_capabilities = {}
 
         # Internal registry of dynamic registrations and their current state
         # @registrations[ <[String] method_name>] = [
@@ -37,7 +37,7 @@ module PuppetLanguageServer
       end
 
       def client_capability(*names)
-        safe_hash_traverse(@client_capabilites, *names)
+        safe_hash_traverse(@client_capabilities, *names)
       end
 
       def send_configuration_request
@@ -49,7 +49,7 @@ module PuppetLanguageServer
       end
 
       def parse_lsp_initialize!(initialize_params = {})
-        @client_capabilites = initialize_params['capabilities']
+        @client_capabilities = initialize_params['capabilities']
       end
 
       def parse_lsp_configuration_settings!(settings = {})
@@ -59,7 +59,7 @@ module PuppetLanguageServer
           # Is dynamic registration available?
           if client_capability('textDocument', 'onTypeFormatting', 'dynamicRegistration') == true
             if value
-              register_capability('textDocument/onTypeFormatting', PuppetLanguageServer::ServerCapabilites.document_on_type_formatting_options)
+              register_capability('textDocument/onTypeFormatting', PuppetLanguageServer::ServerCapabilities.document_on_type_formatting_options)
             else
               unregister_capability('textDocument/onTypeFormatting')
             end
@@ -73,12 +73,12 @@ module PuppetLanguageServer
         @use_puppetfile_resolver = to_boolean(safe_hash_traverse(settings, 'puppet', 'validate', 'resolvePuppetfiles'), DEFAULT_VALIDATE_RESOLVE_PUPPETFILES)
 
         # folding range enabled
-        value = to_boolean(safe_hash_traverse(settings, 'puppet', 'editorService', 'foldingRange', 'enable'), DEFAULT_FOLDING_RANGE_ENABLE) && PuppetLanguageServer::ServerCapabilites.folding_provider_supported?
+        value = to_boolean(safe_hash_traverse(settings, 'puppet', 'editorService', 'foldingRange', 'enable'), DEFAULT_FOLDING_RANGE_ENABLE) && PuppetLanguageServer::ServerCapabilities.folding_provider_supported?
         unless value == @folding_range # Ummm no.
           # Is dynamic registration available?
           if client_capability('textDocument', 'foldingRange', 'dynamicRegistration') == true
             if value
-              register_capability('textDocument/foldingRange', PuppetLanguageServer::ServerCapabilites.document_on_type_formatting_options)
+              register_capability('textDocument/foldingRange', PuppetLanguageServer::ServerCapabilities.document_on_type_formatting_options)
             else
               unregister_capability('textDocument/foldingRange')
             end

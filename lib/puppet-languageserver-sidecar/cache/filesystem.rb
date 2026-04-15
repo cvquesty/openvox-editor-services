@@ -15,7 +15,7 @@ module PuppetLanguageServerSidecar
         begin
           Dir.mkdir(@cache_dir) unless Dir.exist?(@cache_dir)
         rescue Errno::ENOENT => e
-          PuppetLanguageServerSidecar.log_message(:error, "[PuppetLanguageServerSidecar::Cache::FileSystem] An error occured while creating file cache.  Disabling cache: #{e}")
+          PuppetLanguageServerSidecar.log_message(:error, "[PuppetLanguageServerSidecar::Cache::FileSystem] An error occurred while creating file cache.  Disabling cache: #{e}")
           @cache_dir = nil
         end
       end

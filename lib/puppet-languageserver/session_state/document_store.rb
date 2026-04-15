@@ -127,7 +127,7 @@ module PuppetLanguageServer
       # The current best detection method is as follows:
       # "Given the full path to the .pp file, if it contains a directory called plans, AND that plans is not a sub-directory of manifests, then it is a plan file"
       #
-      # See https://github.com/lingua-pupuli/puppet-editor-services/issues/129 for the full discussion
+      # See https://github.com/cvquesty/openvox-editor-services/issues/129 for the full discussion
       def plan_file?(uri)
         uri_path = PuppetLanguageServer::UriHelper.uri_path(uri)
         return false if uri_path.nil?

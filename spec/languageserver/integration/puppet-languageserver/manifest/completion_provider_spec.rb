@@ -620,7 +620,7 @@ EOT
           expect(result.documentation).to match(/.+/)
         end
 
-        it 'should return a text literal with the parameter defintion' do
+        it 'should return a text literal with the parameter definition' do
           result = subject.resolve(session_state, @resolve_request)
           expect(result.insertText).to match(/.+ => /)
           expect(result.insertTextFormat).to be_nil
@@ -666,7 +666,7 @@ EOT
           expect(result.documentation).to match(/.+/)
         end
 
-        it 'should return a text literal with the property defintion' do
+        it 'should return a text literal with the property definition' do
           result = subject.resolve(session_state, @resolve_request)
           expect(result.insertText).to match(/.+ => /)
           expect(result.insertTextFormat).to be_nil

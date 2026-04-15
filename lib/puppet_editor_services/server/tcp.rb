@@ -39,7 +39,7 @@ module PuppetEditorServices
       end
 
       ####
-      # this code will be called when a socket recieves data.
+      # this code will be called when a socket receives data.
       # @api private
       def get_data(io, connection_data)
         data = io.recv_nonblock(1_048_576) # with maximum number of bytes to read at a time...

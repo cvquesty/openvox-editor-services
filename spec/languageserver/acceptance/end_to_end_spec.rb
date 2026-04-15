@@ -80,7 +80,7 @@ describe 'End to End Testing' do
       @client.send_data(@client.initialize_request(@client.next_seq_id, workspace))
       expect(@client).to receive_message_with_request_id_within_timeout([@client.current_seq_id, 5])
       result = @client.data_from_request_seq_id(@client.current_seq_id)
-      # Ensure required capabilites are enabled
+      # Ensure required capabilities are enabled
       expect(result['result']['capabilities']).to include(
         {
           'textDocumentSync' => 1,
@@ -280,7 +280,7 @@ describe 'End to End Testing' do
       @client.send_data(@client.initialize_request(@client.next_seq_id, workspace))
       expect(@client).to receive_message_with_request_id_within_timeout([@client.current_seq_id, 5])
       result = @client.data_from_request_seq_id(@client.current_seq_id)
-      # Ensure required capabilites are enabled
+      # Ensure required capabilities are enabled
       expect(result['result']['capabilities']).to include(
         {
           'textDocumentSync' => 1,

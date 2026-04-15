@@ -62,7 +62,7 @@ function GenerateRubyFromProperty(prop, allTypes) {
 
     const thatType = allTypes[propName];
     if (thatType != null) {
-      return prefix + "to_typed_aray(value['" + prop.name + "'], " + propName + ")\n"
+      return prefix + "to_typed_array(value['" + prop.name + "'], " + propName + ")\n"
     }
 
     return defaultArrayText.replace(/\n/, " # Unknown array type\n");

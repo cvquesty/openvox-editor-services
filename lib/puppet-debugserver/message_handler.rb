@@ -127,7 +127,7 @@ module PuppetDebugServer
       # We don't have that kinda memory or disassembly
       capabilities.supportsReadMemoryRequest         = false
       capabilities.supportsDisassembleRequest        = false
-      # Other capabilites which don't make sens in a Puppet world, yet.
+      # Other capabilities which don't make sens in a Puppet world, yet.
       capabilities.supportsEvaluateForHovers         = false
       capabilities.supportsCompletionsRequest        = false
       capabilities.additionalModuleColumns           = []
@@ -142,8 +142,8 @@ module PuppetDebugServer
       protocol.encode_and_send(PuppetEditorServices::Protocol::DebugAdapterMessages.reply_success(request_message, capabilities))
 
       # Send a message that we are initialized
-      # This must happen _after_ the capabilites are sent. This is pretty janky but _meh_
-      sleep(0.5) # Sleep for a small amount of time to give the client time to process the capabilites response
+      # This must happen _after_ the capabilities are sent. This is pretty janky but _meh_
+      sleep(0.5) # Sleep for a small amount of time to give the client time to process the capabilities response
       PuppetEditorServices::Protocol::DebugAdapterMessages.new_event('initialized')
     end
 
