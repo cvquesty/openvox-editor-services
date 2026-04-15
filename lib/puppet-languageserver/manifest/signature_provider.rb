@@ -8,11 +8,16 @@ module PuppetLanguageServer
           tasks_mode: false
         }.merge(options)
 
-        result = PuppetLanguageServer::PuppetParserHelper.object_under_cursor(content, line_num, char_num,
-                                                                              multiple_attempts: false,
-                                                                              tasks_mode: options[:tasks_mode],
-                                                                              remove_trigger_char: false)
         response = LSP::SignatureHelp.new.from_h!('signatures' => [], 'activeSignature' => nil, 'activeParameter' => nil)
+
+        begin
+          result = PuppetLanguageServer::PuppetParserHelper.object_under_cursor(content, line_num, char_num,
+                                                                                multiple_attempts: false,
+                                                                                tasks_mode: options[:tasks_mode],
+                                                                                remove_trigger_char: false)
+        rescue StandardError
+          return response
+        end
         # We are in the root of the document so no signatures here.
         return response if result.nil?
 
@@ -32,11 +37,11 @@ module PuppetLanguageServer
             distance_up_ast -= 1
             function_ast_object = path[distance_up_ast]
           end
-          raise "Unable to find suitable parent object for object of type #{item.class}" if function_ast_object.nil?
+          return response if function_ast_object.nil?
         end
 
         function_name = function_ast_object.functor_expr.value
-        raise 'Could not determine the function name' if function_name.nil?
+        return response if function_name.nil?
 
         # Convert line and char nums (base 0) to an absolute offset within the document
         #   result.line_offsets contains an array of the offsets on a per line basis e.g.
@@ -51,10 +56,10 @@ module PuppetLanguageServer
         abs_offset = line_offset + char_num
         # We need to use offsets here in case functions span lines
         param_number = param_number_from_ast(abs_offset, function_ast_object, locator)
-        raise 'Cursor is not within the function expression' if param_number.nil?
+        return response if param_number.nil?
 
         func_info = PuppetLanguageServer::PuppetHelper.function(session_state, function_name)
-        raise "Function #{function_name} does not exist" if func_info.nil?
+        return response if func_info.nil?
 
         func_info.signatures.each do |sig|
           lsp_sig = LSP::SignatureInformation.new.from_h!(

@@ -94,12 +94,12 @@ EOT
         EOT
       }
 
-      it "should raise an error for Bolt datatypes" do
-        expect{subject.resolve(session_state, content, 1, 15, { :tasks_mode => false})}.to raise_error(RuntimeError)
+      it "should return nil for Bolt datatypes" do
+        expect(subject.resolve(session_state, content, 1, 15, { :tasks_mode => false})).to be_nil
       end
 
-      it "should raise an error for Bolt functions" do
-        expect{subject.resolve(session_state, content, 3, 36, { :tasks_mode => false})}.to raise_error(RuntimeError)
+      it "should return nil for Bolt functions" do
+        expect(subject.resolve(session_state, content, 3, 36, { :tasks_mode => false})).to be_nil
       end
     end
 

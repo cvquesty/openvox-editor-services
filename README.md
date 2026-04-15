@@ -42,9 +42,9 @@ This project provides the backend services for:
 * Clone this repository
 
 ```bash
-> git clone https://github.com/puppetlabs/puppet-editor-services.git
+> git clone https://github.com/cvquesty/openvox-editor-services.git
 
-> cd puppet-editor-services
+> cd openvox-editor-services
 ```
 
 * Bundle the development gems
@@ -318,11 +318,11 @@ This codebase is licensed under Apache 2.0. However, the open source dependencie
 
 ## Reporting bugs
 
-If you find a bug in puppet-editor-services or its results, please create an issue in the [repo issues tracker](https://github.com/puppetlabs/puppet-editor-services/issues). Bonus points will be awarded if you also include a patch that fixes the issue.
+If you find a bug in openvox-editor-services or its results, please create an issue in the [repo issues tracker](https://github.com/cvquesty/openvox-editor-services/issues). Bonus points will be awarded if you also include a patch that fixes the issue.
 
 ## Development
 
-If you run into an issue with this tool or would like to request a feature you can raise a PR with your suggested changes. Alternatively, you can raise a Github issue with a feature request or to report any bugs. Every other Tuesday the DevX team holds office hours in the Puppet Community Slack, where you can ask questions about this and any other supported tools. This session runs at 15:00 (GMT) for about an hour.
+If you run into an issue with this tool or would like to request a feature you can raise a PR with your suggested changes. Alternatively, you can raise a GitHub issue with a feature request or to report any bugs.
 
 ## Why are there vendored gems and why only native ruby
 

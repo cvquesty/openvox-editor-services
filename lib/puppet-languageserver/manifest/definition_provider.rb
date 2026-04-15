@@ -63,7 +63,7 @@ module PuppetLanguageServer
           response << type_or_class(session_state, resource_name)
 
         else
-          raise "Unable to generate Defintion information for object of type #{item.class}"
+          return response.compact
         end
 
         response.compact

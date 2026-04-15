@@ -29,7 +29,7 @@ module PuppetEditorServices
           if name.casecmp('Content-Length').zero?
             header['Content-Length'] = value.strip.to_i
           elsif name.casecmp('Content-Type').zero?
-            header['Content-Length'] = value.strip
+            header['Content-Type'] = value.strip
           else
             raise("Unknown header #{name} in JSON message")
           end

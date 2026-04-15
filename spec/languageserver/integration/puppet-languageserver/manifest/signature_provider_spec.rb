@@ -236,8 +236,9 @@ describe 'signature_provider' do
         { :name => 'a missing middle parameter', :manifest => 'func_three_param($param1  , , ) ' },
       ].each do |testcase|
         describe "When the manifest has #{testcase[:name]}" do
-          it "should raise a runtime error" do
-            expect {subject.signature_help(session_state, testcase[:manifest], 0, 18, { :tasks_mode => true}) }.to raise_error(RuntimeError)
+          it "should return an empty signature help response" do
+            result = subject.signature_help(session_state, testcase[:manifest], 0, 18, { :tasks_mode => true})
+            expect(result.signatures).to be_empty
           end
         end
       end
@@ -253,8 +254,9 @@ describe 'signature_provider' do
           { :name => 'after the end bracket',    :character => 49 },
         ].each do |testcase|
           describe "When the cursor is #{testcase[:name]}" do
-            it 'should raise a runtime error' do
-              expect {subject.signature_help(session_state, content, 1, testcase[:character], { :tasks_mode => true}) }.to raise_error(RuntimeError)
+            it 'should return an empty signature help response' do
+              result = subject.signature_help(session_state, content, 1, testcase[:character], { :tasks_mode => true})
+              expect(result.signatures).to be_empty
             end
           end
         end
@@ -268,8 +270,9 @@ describe 'signature_provider' do
           { :name => 'on nested function name', :character => 36 },
         ].each do |testcase|
           describe "When the cursor is #{testcase[:name]}" do
-            it 'should raise a runtime error' do
-              expect {subject.signature_help(session_state, content, 0, testcase[:character], { :tasks_mode => true}) }.to raise_error(RuntimeError)
+            it 'should return an empty signature help response' do
+              result = subject.signature_help(session_state, content, 0, testcase[:character], { :tasks_mode => true})
+              expect(result.signatures).to be_empty
             end
           end
         end

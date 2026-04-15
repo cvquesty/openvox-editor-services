@@ -11,7 +11,7 @@ module PuppetLanguageServerSidecar
         require 'json'
         require 'tmpdir'
 
-        @cache_dir = File.join(Dir.tmpdir, 'puppet-vscode-cache')
+        @cache_dir = File.join(Dir.tmpdir, 'openvox-editor-cache')
         begin
           Dir.mkdir(@cache_dir) unless Dir.exist?(@cache_dir)
         rescue Errno::ENOENT => e

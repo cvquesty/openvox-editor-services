@@ -46,7 +46,7 @@ module PuppetLanguageServer
             distance_up_ast -= 1
             parent_klass = path[distance_up_ast]
           end
-          raise "Unable to find suitable parent object for object of type #{item.class}" if parent_klass.nil?
+          return nil if parent_klass.nil?
 
           resource_type_name = path[distance_up_ast - 1].type_name.value
           # Check if it's a Puppet Type
@@ -66,17 +66,17 @@ module PuppetLanguageServer
             resource_object = PuppetLanguageServer::PuppetHelper.get_class(session_state, resource_type_name)
             content = get_attribute_class_parameter_content(resource_object, item.attribute_name) unless resource_object.nil?
           end
-          raise "#{resource_type_name} is not a valid puppet type, class or defined type" if resource_object.nil?
+          return nil if resource_object.nil?
         when 'Puppet::Pops::Model::QualifiedReference'
           # https://github.com/puppetlabs/puppet-specifications/blob/master/language/names.md#names
           # Datatypes have to start with uppercase and can be fully qualified
           if /^[A-Z][a-zA-Z:0-9]*$/.match?(item.cased_value) # rubocop:disable Style/GuardClause
             content = get_puppet_datatype_content(session_state, item, options[:tasks_mode])
           else
-            raise "#{item.cased_value} is an unknown QualifiedReference"
+            return nil
           end
         else
-          raise "Unable to generate Hover information for object of type #{item.class}"
+          return nil
         end
 
         return nil if content.nil?
@@ -157,7 +157,7 @@ module PuppetLanguageServer
         func_name = item.functor_expr.value
 
         func_info = PuppetLanguageServer::PuppetHelper.function(session_state, func_name, tasks_mode)
-        raise "Function #{func_name} does not exist" if func_info.nil?
+        return nil if func_info.nil?
 
         content = "**#{func_name}** Function"
         content += "\n\n#{func_info.doc}" unless func_info.doc.nil?
@@ -176,7 +176,7 @@ module PuppetLanguageServer
         item_object = PuppetLanguageServer::PuppetHelper.get_class(session_state, name)
         return get_puppet_class_content(item_object) unless item_object.nil?
 
-        raise "#{name} is not a valid puppet type"
+        nil
       end
 
       def self.get_puppet_type_content(item_type)
@@ -206,7 +206,7 @@ module PuppetLanguageServer
 
       def self.get_puppet_datatype_content(session_state, item, tasks_mode)
         dt_info = PuppetLanguageServer::PuppetHelper.datatype(session_state, item.cased_value, tasks_mode)
-        raise "DataType #{item.cased_value} does not exist" if dt_info.nil?
+        return nil if dt_info.nil?
 
         content = "**#{item.cased_value}** Data Type"
         content += ' Alias' if dt_info.is_type_alias

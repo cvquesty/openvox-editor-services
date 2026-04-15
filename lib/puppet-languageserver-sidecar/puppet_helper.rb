@@ -107,7 +107,7 @@ module PuppetLanguageServerSidecar
         next unless object_types.include?(:type)
 
         file_doc.types.each do |item|
-          result.append!(item) unless %w[whit component].include?(name)
+          result.append!(item) unless %w[whit component].include?(item.key)
           finder.temp_file.unlink if item.key == 'file' && File.exist?(finder.temp_file.path) # Remove the temp_file.rb if it exists
         end
       end

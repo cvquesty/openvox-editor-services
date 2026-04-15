@@ -174,7 +174,7 @@ module PuppetLanguageServer
       when :manifest
         PuppetLanguageServer::Manifest::FoldingProvider.instance.folding_ranges(documents.document_tokens(file_uri))
       else
-        raise "Unable to provide folding ranages on #{file_uri}"
+        raise "Unable to provide folding ranges on #{file_uri}"
       end
     rescue StandardError => e
       PuppetLanguageServer.log_message(:error, "(textDocument/foldingRange) #{e}")

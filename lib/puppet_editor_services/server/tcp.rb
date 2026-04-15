@@ -313,7 +313,7 @@ module PuppetEditorServices
         # This needs to be synchronous
         begin
           self.class.io_connection_dic[io][:handler].unbind
-        rescue e
+        rescue StandardError => e
           # Any errors when unbinding the handler should NOT stop the underlying socket
           # from being closed
           log("Error unbinding #{e.inspect}\n#{e.backtrace}")

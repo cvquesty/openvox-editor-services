@@ -12,13 +12,15 @@ module PuppetLanguageServer
       #    <String> New Content
       #  ]
       def self.fix_validate_errors(session_state, content)
-        init_puppet_lint(session_state.documents.store_root_path, ['--fix'])
+        init_puppet_lint(session_state.documents.store_root_path)
 
-        linter = PuppetLint::Checks.new
-        linter.load_data(nil, content)
+        PuppetLint.configuration.fix = true
+        linter = PuppetLint.new
+        linter.path = 'stdin.pp'
+        linter.code = content
+        linter.run
 
-        problems = linter.run(nil, content)
-        problems_fixed = problems.nil? ? 0 : problems.count { |item| item[:kind] == :fixed }
+        problems_fixed = linter.problems.nil? ? 0 : linter.problems.count { |item| item[:kind] == :fixed }
 
         [problems_fixed, linter.manifest]
       end
@@ -33,15 +35,16 @@ module PuppetLanguageServer
         # TODO: Need to implement max_problems
         problems = 0
 
-        init_puppet_lint(session_state.documents.store_root_path, [])
+        init_puppet_lint(session_state.documents.store_root_path)
 
         begin
-          linter = PuppetLint::Checks.new
-          linter.load_data(nil, content)
+          linter = PuppetLint.new
+          linter.path = 'stdin.pp'
+          linter.code = content
+          linter.run
 
-          problems = linter.run(nil, content)
-          unless problems.nil?
-            problems.each do |problem|
+          unless linter.problems.nil?
+            linter.problems.each do |problem|
               # Syntax errors are better handled by the puppet parser, not puppet lint
               next if problem[:kind] == :error && problem[:check] == :syntax
               # Ignore linting errors what were ignored by puppet-lint
@@ -103,23 +106,18 @@ module PuppetLanguageServer
         result
       end
 
-      def self.init_puppet_lint(root_dir, lint_options = [])
-        linter_options = nil
-        if root_dir.nil?
-          linter_options = PuppetLint::OptParser.build
-        else
+      def self.init_puppet_lint(root_dir)
+        # Read .puppet-lint.rc from the workspace root if available
+        if root_dir
           begin
             $PuppetParserMutex.synchronize do # rubocop:disable Style/GlobalVars
-              Dir.chdir(root_dir.to_s) { linter_options = PuppetLint::OptParser.build }
+              Dir.chdir(root_dir.to_s) { PuppetLint::OptParser.build }
             end
           rescue OptionParser::InvalidOption => e
             PuppetLanguageServer.log_message(:error, "(#{name}) Error reading Puppet Lint configuration.  Using default: #{e}")
-            linter_options = PuppetLint::OptParser.build
           end
         end
-        # Reset the fix flag
         PuppetLint.configuration.fix = false
-        linter_options.parse!(lint_options)
       end
       private_class_method :init_puppet_lint
     end

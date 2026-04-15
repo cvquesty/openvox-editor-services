@@ -3,17 +3,17 @@ require_relative 'lib/puppet_editor_services/version'
 require 'rake'
 
 Gem::Specification.new do |s|
-  s.name           = 'puppet-editor-services'
+  s.name           = 'openvox-editor-services'
   s.version        = PuppetEditorServices.version
-  s.authors        = ['Puppet']
-  s.email          = ['support@puppet.com']
-  s.summary       = 'Puppet Language Server for editors'
+  s.authors        = ['Vox Pupuli']
+  s.email          = ['voxpupuli@groups.io']
+  s.summary       = 'OpenVox/Puppet Language Server for editors'
   s.description = <<~EOF
     A ruby based implementation of a Language Server and Debug Server for the
-    Puppet Language. Integrate this into your editor to benefit from full Puppet
-    Language support, such as syntax hightlighting, linting, hover support and more.
+    OpenVox/Puppet Language. Integrate this into your editor to benefit from full
+    language support, such as syntax highlighting, linting, hover support and more.
   EOF
-  s.homepage    = 'https://github.com/puppetlabs/puppet-editor-services'
+  s.homepage    = 'https://github.com/cvquesty/openvox-editor-services'
   s.required_ruby_version = '>= 3.1.0'
   s.executables = %w[ puppet-debugserver puppet-languageserver puppet-languageserver-sidecar ]
   s.files          = FileList['lib/**/*.rb',
