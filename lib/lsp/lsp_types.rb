@@ -198,7 +198,7 @@ module LSP
       value = {} if value.nil?
       self.label = value['label']
       self.textEdit = TextEdit.new(value['textEdit']) unless value['textEdit'].nil?
-      self.additionalTextEdits = to_typed_aray(value['additionalTextEdits'], TextEdit)
+      self.additionalTextEdits = to_typed_array(value['additionalTextEdits'], TextEdit)
       self
     end
   end
@@ -317,7 +317,7 @@ module LSP
       self.source = value['source']
       self.message = value['message']
       self.tags = value['tags'].map { |val| val } unless value['tags'].nil? # Unknown array type
-      self.relatedInformation = to_typed_aray(value['relatedInformation'], DiagnosticRelatedInformation)
+      self.relatedInformation = to_typed_array(value['relatedInformation'], DiagnosticRelatedInformation)
       self
     end
   end
@@ -393,7 +393,7 @@ module LSP
     def from_h!(value)
       value = {} if value.nil?
       self.textDocument = VersionedTextDocumentIdentifier.new(value['textDocument']) unless value['textDocument'].nil?
-      self.edits = to_typed_aray(value['edits'], TextEdit)
+      self.edits = to_typed_array(value['edits'], TextEdit)
       self
     end
   end
@@ -876,7 +876,7 @@ module LSP
       self.insertText = value['insertText']
       self.insertTextFormat = value['insertTextFormat'] # Unknown type
       self.textEdit = TextEdit.new(value['textEdit']) unless value['textEdit'].nil?
-      self.additionalTextEdits = to_typed_aray(value['additionalTextEdits'], TextEdit)
+      self.additionalTextEdits = to_typed_array(value['additionalTextEdits'], TextEdit)
       self.commitCharacters = value['commitCharacters'].map { |val| val } unless value['commitCharacters'].nil?
       self.command = Command.new(value['command']) unless value['command'].nil?
       self.data = value['data']
@@ -900,7 +900,7 @@ module LSP
     def from_h!(value)
       value = {} if value.nil?
       self.isIncomplete = value['isIncomplete'] # Unknown type
-      self.items = to_typed_aray(value['items'], CompletionItem)
+      self.items = to_typed_array(value['items'], CompletionItem)
       self
     end
   end
@@ -993,7 +993,7 @@ module LSP
       value = {} if value.nil?
       self.label = value['label']
       self.documentation = value['documentation'] # Unknown type
-      self.parameters = to_typed_aray(value['parameters'], ParameterInformation)
+      self.parameters = to_typed_array(value['parameters'], ParameterInformation)
       self
     end
   end
@@ -1019,7 +1019,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.signatures = to_typed_aray(value['signatures'], SignatureInformation)
+      self.signatures = to_typed_array(value['signatures'], SignatureInformation)
       self.activeSignature = value['activeSignature'] # Unknown type
       self.activeParameter = value['activeParameter'] # Unknown type
       self
@@ -1170,7 +1170,7 @@ module LSP
       self.deprecated = value['deprecated'] # Unknown type
       self.range = Range.new(value['range']) unless value['range'].nil?
       self.selectionRange = Range.new(value['selectionRange']) unless value['selectionRange'].nil?
-      self.children = to_typed_aray(value['children'], DocumentSymbol)
+      self.children = to_typed_array(value['children'], DocumentSymbol)
       self
     end
   end
@@ -1202,7 +1202,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.diagnostics = to_typed_aray(value['diagnostics'], Diagnostic)
+      self.diagnostics = to_typed_array(value['diagnostics'], Diagnostic)
       self.only = value['only'].map { |val| val } unless value['only'].nil? # Unknown array type
       self
     end
@@ -1256,7 +1256,7 @@ module LSP
       value = {} if value.nil?
       self.title = value['title']
       self.kind = value['kind'] # Unknown type
-      self.diagnostics = to_typed_aray(value['diagnostics'], Diagnostic)
+      self.diagnostics = to_typed_array(value['diagnostics'], Diagnostic)
       self.isPreferred = value['isPreferred'] # Unknown type
       self.edit = WorkspaceEdit.new(value['edit']) unless value['edit'].nil?
       self.command = Command.new(value['command']) unless value['command'].nil?

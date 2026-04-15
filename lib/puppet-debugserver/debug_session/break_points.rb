@@ -37,7 +37,7 @@ module PuppetDebugServer
             PuppetDebugServer.log_message(:error, "Error reading file #{arguments.source.path} for source breakpoints: #{e}")
           end
         else
-          PuppetDebugServer.log_message(:debug, "Unable to set source breakpoints for non-existant file #{arguments.source.path}")
+          PuppetDebugServer.log_message(:debug, "Unable to set source breakpoints for non-existent file #{arguments.source.path}")
         end
 
         # Create the initial list of breakpoint responses

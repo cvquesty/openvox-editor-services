@@ -112,7 +112,7 @@ module LSP
     def from_h!(value)
       value = {} if value.nil?
       self.resultId = value['resultId']
-      self.edits = to_typed_aray(value['edits'], SemanticTokensEdit)
+      self.edits = to_typed_array(value['edits'], SemanticTokensEdit)
       self
     end
   end
@@ -125,7 +125,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.edits = to_typed_aray(value['edits'], SemanticTokensEdit)
+      self.edits = to_typed_array(value['edits'], SemanticTokensEdit)
       self
     end
   end

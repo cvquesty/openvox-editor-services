@@ -30,8 +30,6 @@ module PuppetLanguageServerSidecar
         end
       rescue StandardError => e
         PuppetLanguageServerSidecar.log_message(:error, "[FacterHelper::_load_facts] Error loading facts #{e.message} #{e.backtrace}")
-      rescue LoadError => e
-        PuppetLanguageServerSidecar.log_message(:error, "[FacterHelper::_load_facts] Error loading facts (LoadError) #{e.message} #{e.backtrace}")
       end
 
       PuppetLanguageServerSidecar.log_message(:debug, "[FacterHelper::retrieve_facts] Finished loading #{facts.count} facts")

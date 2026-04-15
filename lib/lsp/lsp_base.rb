@@ -41,7 +41,7 @@ module LSP
       method_names.reject { |name| name.to_s.end_with?('=') }
     end
 
-    def to_typed_aray(val, expected_type)
+    def to_typed_array(val, expected_type)
       return nil if val.nil?
 
       val.map { |item| expected_type.new(item) }

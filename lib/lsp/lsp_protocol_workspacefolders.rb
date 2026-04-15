@@ -163,8 +163,8 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.added = to_typed_aray(value['added'], WorkspaceFolder)
-      self.removed = to_typed_aray(value['removed'], WorkspaceFolder)
+      self.added = to_typed_array(value['added'], WorkspaceFolder)
+      self.removed = to_typed_array(value['removed'], WorkspaceFolder)
       self
     end
   end

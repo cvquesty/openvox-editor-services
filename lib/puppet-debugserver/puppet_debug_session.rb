@@ -484,7 +484,7 @@ module PuppetDebugServer
     end
   end
 
-  # A simple class which represents the position of somethin within a source document
+  # A simple class which represents the position of something within a source document
   class SourcePosition
     # The path of the source file
     # @return [String]
@@ -498,7 +498,7 @@ module PuppetDebugServer
     # @return [Integer]
     attr_accessor :offset
 
-    # The numner of characters this position encompasses
+    # The number of characters this position encompasses
     # @return [Integer]
     attr_accessor :length
   end

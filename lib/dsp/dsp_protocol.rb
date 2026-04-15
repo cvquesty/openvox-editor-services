@@ -1415,7 +1415,7 @@ module DSP
     def from_h!(value)
       value = {} if value.nil?
       self.source = Source.new(value['source']) unless value['source'].nil?
-      self.breakpoints = to_typed_aray(value['breakpoints'], SourceBreakpoint)
+      self.breakpoints = to_typed_array(value['breakpoints'], SourceBreakpoint)
       self.lines = value['lines'].map { |val| val } unless value['lines'].nil?
       self.sourceModified = value['sourceModified'] # Unknown type
       self
@@ -1482,7 +1482,7 @@ module DSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.breakpoints = to_typed_aray(value['breakpoints'], FunctionBreakpoint)
+      self.breakpoints = to_typed_array(value['breakpoints'], FunctionBreakpoint)
       self
     end
   end
@@ -1553,7 +1553,7 @@ module DSP
     def from_h!(value)
       value = {} if value.nil?
       self.filters = value['filters'].map { |val| val } unless value['filters'].nil?
-      self.exceptionOptions = to_typed_aray(value['exceptionOptions'], ExceptionOptions)
+      self.exceptionOptions = to_typed_array(value['exceptionOptions'], ExceptionOptions)
       self
     end
   end
@@ -1689,7 +1689,7 @@ module DSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.breakpoints = to_typed_aray(value['breakpoints'], DataBreakpoint)
+      self.breakpoints = to_typed_array(value['breakpoints'], DataBreakpoint)
       self
     end
   end
@@ -3661,7 +3661,7 @@ module DSP
       self.supportsConditionalBreakpoints = value['supportsConditionalBreakpoints'] # Unknown type
       self.supportsHitConditionalBreakpoints = value['supportsHitConditionalBreakpoints'] # Unknown type
       self.supportsEvaluateForHovers = value['supportsEvaluateForHovers'] # Unknown type
-      self.exceptionBreakpointFilters = to_typed_aray(value['exceptionBreakpointFilters'], ExceptionBreakpointsFilter)
+      self.exceptionBreakpointFilters = to_typed_array(value['exceptionBreakpointFilters'], ExceptionBreakpointsFilter)
       self.supportsStepBack = value['supportsStepBack'] # Unknown type
       self.supportsSetVariable = value['supportsSetVariable'] # Unknown type
       self.supportsRestartFrame = value['supportsRestartFrame'] # Unknown type
@@ -3670,7 +3670,7 @@ module DSP
       self.supportsCompletionsRequest = value['supportsCompletionsRequest'] # Unknown type
       self.completionTriggerCharacters = value['completionTriggerCharacters'].map { |val| val } unless value['completionTriggerCharacters'].nil?
       self.supportsModulesRequest = value['supportsModulesRequest'] # Unknown type
-      self.additionalModuleColumns = to_typed_aray(value['additionalModuleColumns'], ColumnDescriptor)
+      self.additionalModuleColumns = to_typed_array(value['additionalModuleColumns'], ColumnDescriptor)
       self.supportedChecksumAlgorithms = value['supportedChecksumAlgorithms'].map { |val| val } unless value['supportedChecksumAlgorithms'].nil? # Unknown array type
       self.supportsRestartRequest = value['supportsRestartRequest'] # Unknown type
       self.supportsExceptionOptions = value['supportsExceptionOptions'] # Unknown type
@@ -3851,7 +3851,7 @@ module DSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.columns = to_typed_aray(value['columns'], ColumnDescriptor)
+      self.columns = to_typed_array(value['columns'], ColumnDescriptor)
       self
     end
   end
@@ -3917,9 +3917,9 @@ module DSP
       self.sourceReference = value['sourceReference']
       self.presentationHint = value['presentationHint'] # Unknown type
       self.origin = value['origin']
-      self.sources = to_typed_aray(value['sources'], Source)
+      self.sources = to_typed_array(value['sources'], Source)
       self.adapterData = value['adapterData']
-      self.checksums = to_typed_aray(value['checksums'], Checksum)
+      self.checksums = to_typed_array(value['checksums'], Checksum)
       self
     end
   end
@@ -4503,7 +4503,7 @@ module DSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.path = to_typed_aray(value['path'], ExceptionPathSegment)
+      self.path = to_typed_array(value['path'], ExceptionPathSegment)
       self.breakMode = value['breakMode'] # Unknown type
       self
     end
@@ -4560,7 +4560,7 @@ module DSP
       self.fullTypeName = value['fullTypeName']
       self.evaluateName = value['evaluateName']
       self.stackTrace = value['stackTrace']
-      self.innerException = to_typed_aray(value['innerException'], ExceptionDetails)
+      self.innerException = to_typed_array(value['innerException'], ExceptionDetails)
       self
     end
   end

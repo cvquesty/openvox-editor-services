@@ -206,7 +206,7 @@ module PuppetEditorServices
               elsif self.class.io_connection_dic[io]
                 callback(self, :get_data, io, self.class.io_connection_dic[io])
               else
-                log('what?!')
+                log('Unknown IO object in select loop')
                 remove_connection(io)
                 self.class.services.delete(io)
               end

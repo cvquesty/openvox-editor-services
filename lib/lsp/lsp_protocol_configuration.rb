@@ -72,7 +72,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.items = to_typed_aray(value['items'], ConfigurationItem)
+      self.items = to_typed_array(value['items'], ConfigurationItem)
       self
     end
   end

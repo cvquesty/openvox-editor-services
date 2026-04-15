@@ -101,7 +101,6 @@ module PuppetEditorServices
         # NOTE: Not implemented as it doesn't make sense using JSON RPC over pure TCP / UnixSocket.
 
         PuppetEditorServices.log_message(:error, 'Batch request received but not implemented')
-        send_json_string BATCH_NOT_SUPPORTED_RESPONSE
 
         connection.close_after_writing
         @state = :ignore

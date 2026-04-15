@@ -48,7 +48,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.registrations = to_typed_aray(value['registrations'], Registration)
+      self.registrations = to_typed_array(value['registrations'], Registration)
       self
     end
   end
@@ -83,7 +83,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.unregisterations = to_typed_aray(value['unregisterations'], Unregistration)
+      self.unregisterations = to_typed_array(value['unregisterations'], Unregistration)
       self
     end
   end
@@ -428,7 +428,7 @@ module LSP
       value = {} if value.nil?
       self.type = value['type'] # Unknown type
       self.message = value['message']
-      self.actions = to_typed_aray(value['actions'], MessageActionItem)
+      self.actions = to_typed_array(value['actions'], MessageActionItem)
       self
     end
   end
@@ -720,7 +720,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.changes = to_typed_aray(value['changes'], FileEvent)
+      self.changes = to_typed_array(value['changes'], FileEvent)
       self
     end
   end
@@ -757,7 +757,7 @@ module LSP
 
     def from_h!(value)
       value = {} if value.nil?
-      self.watchers = to_typed_aray(value['watchers'], FileSystemWatcher)
+      self.watchers = to_typed_array(value['watchers'], FileSystemWatcher)
       self
     end
   end
