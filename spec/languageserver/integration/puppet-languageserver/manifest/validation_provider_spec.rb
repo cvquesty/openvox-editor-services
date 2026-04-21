@@ -92,7 +92,7 @@ describe 'PuppetLanguageServer::Manifest::ValidationProvider' do
         }"
       }
 
-      it "should return no changes", :pending => "puppet-lint 4.x applies fixes despite lint:ignore directives" do
+      it "should return no changes" do
         problems_fixed, new_content = subject.fix_validate_errors(session_state, manifest)
         expect(problems_fixed).to eq(0)
         expect(new_content).to eq(manifest)

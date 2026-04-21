@@ -33,7 +33,6 @@ module PuppetLanguageServer
 
         result = []
         # TODO: Need to implement max_problems
-        problems = 0
 
         init_puppet_lint(session_state.documents.store_root_path)
 

@@ -3,10 +3,10 @@ name: "ci"
 on:
   push:
     branches:
-      - "main"
+      - "development"
   pull_request:
     branches:
-      - "main"
+      - "development"
   workflow_dispatch:
 
 env:
@@ -25,12 +25,15 @@ jobs:
           - 'windows-latest'
 
     name: "Spec : ${{ matrix.runs_on }} Ruby ${{ matrix.ruby_version }}"
-    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_ci.yml@main"
-    secrets: "inherit"
-    with:
-      ruby_version: ${{ matrix.ruby_version }}
-      runs_on: ${{ matrix.runs_on }}
-      rake_task: 'gem_revendor test:coverage'
+    runs-on: ${{ matrix.runs_on }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby_version }}
+          bundler-cache: true
+      - name: Run specs with coverage
+        run: bundle exec rake gem_revendor test:coverage
 
   acceptance:
     strategy:
@@ -38,21 +41,22 @@ jobs:
       matrix:
         ruby_version:
           - '3.2'
-        include:
-          - ruby_version: '3.2'
-            puppet_version: '~> 8.0'
         runs_on:
           - 'ubuntu-latest'
           - 'windows-latest'
 
     name: "Acceptance : ${{ matrix.runs_on }} Ruby ${{ matrix.ruby_version }}"
-    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_acceptance.yml@main"
-    secrets: "inherit"
-    with:
-      ruby_version: ${{ matrix.ruby_version }}
-      runs_on: ${{ matrix.runs_on }}
-      rake_task: 'gem_revendor acceptance_languageserver'
-      puppet_version: ${{ matrix.puppet_version }}
+    runs-on: ${{ matrix.runs_on }}
+    env:
+      PUPPET_GEM_VERSION: '~> 8.0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby_version }}
+          bundler-cache: true
+      - name: Run acceptance tests
+        run: bundle exec rake gem_revendor acceptance_languageserver
 
   build:
     strategy:
@@ -63,20 +67,18 @@ jobs:
     name: "Build Editor Service (Ruby ${{ matrix.ruby_version }})"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby_version }}
           bundler-cache: true
       - name: Set build version
-        shell: pwsh
-        run: |
-          '99.99.0-gh.${{ github.run_number }}' | Out-File -FilePath 'lib\puppet_editor_services\VERSION' -Encoding ASCII -Confirm:$false -Force
+        run: echo '99.99.0-gh.${{ github.run_number }}' > lib/puppet_editor_services/VERSION
       - name: Run rake gem_revendor build
         run: bundle exec rake gem_revendor build
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
         with:
-          name: puppet-editor-services
-          path: output/*.zip
+          name: openvox-editor-services
+          path: pkg/*.zip
           retention-days: 2

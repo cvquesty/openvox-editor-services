@@ -107,7 +107,7 @@ module PuppetLanguageServerSidecar
         next unless object_types.include?(:type)
 
         file_doc.types.each do |item|
-          result.append!(item) unless %w[whit component].include?(item.key)
+          result.append!(item) unless %w[whit component].include?(item.key.to_s)
           finder.temp_file.unlink if item.key == 'file' && File.exist?(finder.temp_file.path) # Remove the temp_file.rb if it exists
         end
       end
@@ -117,6 +117,14 @@ module PuppetLanguageServerSidecar
         pup4_functions = result.functions.select { |i| i.function_version == 4 }.map { |i| i.key }
         result.functions.reject! { |i| i.function_version == 3 && pup4_functions.include?(i.key) }
       end
+
+      # Final-pass cleanup: deduplicate by key and strip internal-only types
+      # that can leak through the YARD registry across cached runs
+      result.classes&.uniq!(&:key)
+      result.datatypes&.uniq!(&:key)
+      result.functions&.uniq!(&:key)
+      result.types&.reject! { |t| %i[whit component].include?(t.key) }
+      result.types&.uniq!(&:key)
 
       # Add the inbuilt data types if there's no root path
       result.concat!(retrieve_default_data_types) if object_types.include?(:datatype) && options[:root_path].nil?
@@ -199,7 +207,6 @@ module PuppetLanguageServerSidecar
           next unless path_in_root?(from_root_path, search_root) && Dir.exist?(search_root)
 
           PuppetLanguageServerSidecar.log_message(:debug, "[PuppetPathFinder] Using '#{search_root}' as a directory to search")
-          # name of temp file to store the file type definitions (if any)
           @temp_file = Tempfile.new('file.rb')
           all_object_info.each do |object_type, paths_to_search|
             next unless object_types.include?(object_type)
